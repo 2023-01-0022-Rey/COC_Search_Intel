@@ -9,17 +9,17 @@
             <div>
                 <h4 class="text-lg font-bold mb-4 text-blue-400">Follow Me</h4>
                 <div class="flex space-x-4">
-                    <a href="https://www.x.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">alternate_email</span>
+                    <a href="https://www.x.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" title="X (Twitter)">
+                        <img src="https://cdn.simpleicons.org/x/ffffff" alt="X" width="20" height="20" loading="lazy" decoding="async"/>
                     </a>
-                    <a href="https://www.facebook.com/share/176x1cnxJ4/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">groups</span>
+                    <a href="https://www.facebook.com/share/176x1cnxJ4/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+                        <img src="https://cdn.simpleicons.org/facebook/ffffff" alt="Facebook" width="20" height="20" loading="lazy" decoding="async"/>
                     </a>
-                    <a href="https://www.instagram.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">photo_camera</span>
+                    <a href="https://www.instagram.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                        <img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram" width="20" height="20" loading="lazy" decoding="async"/>
                     </a>
-                    <a href="https://www.reddit.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">chat</span>
+                    <a href="https://www.reddit.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200" target="_blank" rel="noopener noreferrer" aria-label="Reddit" title="Reddit">
+                        <img src="https://cdn.simpleicons.org/reddit/ffffff" alt="Reddit" width="20" height="20" loading="lazy" decoding="async"/>
                     </a>
                 </div>
             </div>
