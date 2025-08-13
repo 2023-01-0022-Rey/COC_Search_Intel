@@ -12,8 +12,8 @@
                     <a href="https://x.com/AgluyaRey96000" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
                         <span class="material-symbols-outlined">alternate_email</span>
                     </a>
-                    <a href="https://www.facebook.com/share/176x1cnxJ4/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">groups</span>
+                    <a href="https://www.facebook.com/share/176x1cnxJ4/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+                        <img src="https://cdn.simpleicons.org/facebook/ffffff" alt="Facebook" width="20" height="20" loading="lazy" decoding="async"/>
                     </a>
                     <a href="https://www.instagram.com/rey.a_0_0_/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
                         <span class="material-symbols-outlined">photo_camera</span>

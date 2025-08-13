@@ -20,7 +20,10 @@
             <form method="GET" action="" class="flex items-center gap-3 w-full md:w-auto" id="rankingsFilterForm">
                 <div class="relative w-full md:w-56">
                     <input type="text" id="locationSearch" placeholder="Search location..."
-                           class="w-full rounded-lg px-4 py-2.5 pr-10 bg-gray-900/80 text-gray-100 border border-gray-700 hover:border-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all duration-300 shadow-md" autocomplete="off" aria-expanded="false" aria-controls="locationList">
+                           class="w-full rounded-lg px-4 py-2.5 pr-10 bg-gray-900/80 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors shadow-md"
+                           autocomplete="off" inputmode="search" enterkeyhint="search" spellcheck="false" autocapitalize="none" autocorrect="off"
+                           role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="locationList" aria-activedescendant="" aria-label="Choose location" aria-describedby="locationHelpText">
+                    <p id="locationHelpText" class="sr-only">Type to filter locations. Use Arrow Up and Arrow Down to navigate, Enter to select, Escape to close.</p>
                     <input type="hidden" name="locationId" id="locationIdHidden" value="{{ $selectedLocationId ?? 'global' }}">
 
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
@@ -29,7 +32,7 @@
                         </svg>
                     </span>
 
-                    <ul id="locationList" class="hidden absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-gray-900/95 border border-gray-700 shadow-xl"></ul>
+                    <ul id="locationList" class="hidden absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-gray-950 border border-gray-800/70 shadow-lg focus:outline-none" role="listbox" aria-label="Location options"></ul>
                 </div>
             </form>
         </div>
@@ -103,16 +106,25 @@
     const hidden = document.getElementById('locationIdHidden');
     const form = document.getElementById('rankingsFilterForm');
 
-    // Build options: Global + locations from server
+    // Data: Global + locations from server
     const locations = [{ id: 'global', name: 'Global' }, ...(@json($locations) || [])];
+
+    // State
+    let activeIndex = -1; // keyboard highlight index
+    let itemsCache = locations.slice(0);
+    let rafId = null;
 
     // Initialize input value to current selection
     const currentId = hidden.value || 'global';
     const current = locations.find(l => String(l.id) === String(currentId));
     if (current) input.value = current.name;
 
+    function clearList() {
+      while (list.firstChild) list.removeChild(list.firstChild);
+    }
+
     function render(items) {
-      list.innerHTML = '';
+      clearList();
       if (!items.length) {
         const li = document.createElement('li');
         li.className = 'px-4 py-2 text-gray-400';
@@ -120,18 +132,37 @@
         list.appendChild(li);
         return;
       }
-      items.forEach(loc => {
+      items.forEach((loc, idx) => {
         const li = document.createElement('li');
-        li.className = 'px-4 py-2 text-gray-100 hover:bg-gray-800/80 cursor-pointer flex items-center justify-between';
-        li.innerHTML = `<span>${loc.name ?? ''}</span>`;
-        li.addEventListener('click', () => {
-          hidden.value = loc.id;
-          input.value = loc.name ?? '';
-          hide();
-          form.submit();
-        });
+        li.id = `loc-opt-${String(loc.id).replace(/[^a-z0-9-_]/gi,'')}`;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+        li.className = 'px-4 py-2 text-gray-100 hover:bg-gray-800/80 cursor-pointer';
+        li.textContent = loc.name || '';
+        li.addEventListener('mouseenter', () => setActive(idx));
+        li.addEventListener('click', () => select(loc));
         list.appendChild(li);
       });
+    }
+
+    function setActive(index) {
+      const children = list.children;
+      if (!children.length) return;
+      activeIndex = Math.max(0, Math.min(index, children.length - 1));
+      for (let i = 0; i < children.length; i++) {
+        const isActive = i === activeIndex;
+        children[i].classList.toggle('bg-gray-800/80', isActive);
+        children[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
+        if (isActive) input.setAttribute('aria-activedescendant', children[i].id);
+      }
+      // Ensure active stays in view without layout thrash
+      const activeEl = children[activeIndex];
+      if (activeEl) {
+        const { top, bottom } = activeEl.getBoundingClientRect();
+        const { top: lt, bottom: lb } = list.getBoundingClientRect();
+        if (top < lt) activeEl.scrollIntoView({ block: 'nearest' });
+        else if (bottom > lb) activeEl.scrollIntoView({ block: 'nearest' });
+      }
     }
 
     function show() {
@@ -141,29 +172,45 @@
     function hide() {
       list.classList.add('hidden');
       input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+      activeIndex = -1;
     }
 
-    function filter() {
-      const q = (input.value || '').toLowerCase();
-      const filtered = q ? locations.filter(l => (l.name || '').toLowerCase().includes(q)) : locations;
-      render(filtered);
+    function select(loc) {
+      hidden.value = loc.id;
+      input.value = loc.name || '';
+      hide();
+      form.submit();
+    }
+
+    function doFilter() {
+      const q = (input.value || '').trim().toLowerCase();
+      itemsCache = q ? locations.filter(l => (l.name || '').toLowerCase().includes(q)) : locations;
+      render(itemsCache);
       show();
+      setActive(0);
     }
 
-    input.addEventListener('focus', filter);
-    input.addEventListener('input', filter);
+    // Minimal reflow: debounce via rAF
+    function filterRaf() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(doFilter);
+    }
+
+    input.addEventListener('focus', doFilter);
+    input.addEventListener('input', filterRaf);
     input.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') hide();
+      const max = list.children.length - 1;
+      if (e.key === 'Escape') { hide(); return; }
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (max >= 0) setActive(activeIndex < 0 ? 0 : Math.min(activeIndex + 1, max)); return; }
+      if (e.key === 'ArrowUp') { e.preventDefault(); if (max >= 0) setActive(activeIndex <= 0 ? 0 : activeIndex - 1); return; }
       if (e.key === 'Enter') {
         e.preventDefault();
+        if (activeIndex >= 0 && itemsCache[activeIndex]) { select(itemsCache[activeIndex]); return; }
+        // Fallback: exact match or first contains
         const q = (input.value || '').toLowerCase();
         const match = locations.find(l => (l.name || '').toLowerCase() === q) || locations.find(l => (l.name || '').toLowerCase().includes(q));
-        if (match) {
-          hidden.value = match.id;
-          input.value = match.name;
-          hide();
-          form.submit();
-        }
+        if (match) select(match);
       }
     });
 
