@@ -17,21 +17,33 @@
             </h2>
 
             {{-- Filter Form --}}
-            <form method="GET" action="" class="flex items-center gap-3 w-full md:w-auto">
-                <div class="relative w-full md:w-56">
-                    <select 
-                        name="locationId" 
-                        id="locationId" 
-                        class="appearance-none w-full rounded-lg px-4 py-2.5 pr-10 bg-gray-900/80 text-gray-100 border border-gray-700 hover:border-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all duration-300 shadow-md"
-                        onchange="this.form.submit()"
-                    >
-                        <option value="global" {{ ($selectedLocationId ?? 'global') == 'global' ? 'selected' : '' }}>🌍 Global</option>
-                        @foreach($locations as $loc)
-                            <option value="{{ $loc['id'] }}" {{ ($selectedLocationId ?? 'global') == $loc['id'] ? 'selected' : '' }}>
-                                {{ $loc['name'] }}
-                            </option>
-                        @endforeach
-                    </select>
+            <form method="GET" action="" class="flex items-center gap-3 w-full md:w-auto" x-ref="form">
+                <div class="relative w-full md:w-56" x-data="{
+                        open: false,
+                        query: '',
+                        all: [{id: 'global', name: 'Global'}].concat(@json($locations)),
+                        selectedId: '{{ $selectedLocationId ?? 'global' }}',
+                        get selectedName() {
+                            const match = this.all.find(l => String(l.id) === String(this.selectedId));
+                            return match ? match.name : 'Global';
+                        },
+                        get filtered() {
+                            if (!this.query) return this.all;
+                            const q = this.query.toLowerCase();
+                            return this.all.filter(l => (l.name || '').toLowerCase().includes(q));
+                        },
+                        select(loc) {
+                            this.selectedId = loc.id;
+                            this.query = loc.name;
+                            this.open = false;
+                            this.$refs.locationId.value = loc.id;
+                            this.$refs.form.submit();
+                        }
+                    }" x-init="query = selectedName">
+                    <input type="text" placeholder="Search location..." x-model="query"
+                           @focus="open = true" @input="open = true" @keydown.enter.prevent="filtered.length && select(filtered[0])"
+                           class="w-full rounded-lg px-4 py-2.5 pr-10 bg-gray-900/80 text-gray-100 border border-gray-700 hover:border-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all duration-300 shadow-md" autocomplete="off">
+                    <input type="hidden" name="locationId" x-ref="locationId" value="{{ $selectedLocationId ?? 'global' }}">
 
                     {{-- Icon --}}
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
@@ -39,6 +51,16 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                         </svg>
                     </span>
+
+                    <ul x-show="open" @click.outside="open = false" class="absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-gray-900/95 border border-gray-700 shadow-xl">
+                        <template x-for="loc in filtered" :key="loc.id">
+                            <li @click="select(loc)" class="px-4 py-2 text-gray-100 hover:bg-gray-800/80 cursor-pointer flex items-center justify-between">
+                                <span x-text="loc.name"></span>
+                                <span x-show="String(selectedId) === String(loc.id)" class="material-symbols-outlined text-blue-400 text-base">check</span>
+                            </li>
+                        </template>
+                        <li x-show="filtered.length === 0" class="px-4 py-2 text-gray-400">No results</li>
+                    </ul>
                 </div>
             </form>
         </div>
