@@ -1,5 +1,5 @@
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div id="contact" class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <div>
                 <h4 class="text-lg font-bold mb-4 text-blue-400">Contact Info</h4>
@@ -9,27 +9,27 @@
             <div>
                 <h4 class="text-lg font-bold mb-4 text-blue-400">Follow Me</h4>
                 <div class="flex space-x-4">
-                    <a href="https://www.x.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">alternate_email</span>
+                    <a href="https://www.x.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900" aria-label="X (formerly Twitter)">
+                        <span class="material-symbols-outlined" aria-hidden="true">alternate_email</span>
                     </a>
-                    <a href="https://www.facebook.com/share/176x1cnxJ4/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">groups</span>
+                    <a href="https://www.facebook.com/share/176x1cnxJ4/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900" aria-label="Facebook">
+                        <span class="material-symbols-outlined" aria-hidden="true">groups</span>
                     </a>
-                    <a href="https://www.instagram.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">photo_camera</span>
+                    <a href="https://www.instagram.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900" aria-label="Instagram">
+                        <span class="material-symbols-outlined" aria-hidden="true">photo_camera</span>
                     </a>
-                    <a href="https://www.reddit.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <span class="material-symbols-outlined">chat</span>
+                    <a href="https://www.reddit.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-900" aria-label="Reddit">
+                        <span class="material-symbols-outlined" aria-hidden="true">chat</span>
                     </a>
                 </div>
             </div>
             <div>
                 <h4 class="text-lg font-bold mb-4 text-blue-400">Quick Links</h4>
                 <div class="space-y-2">
-                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200">About Us</a>
-                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200">Privacy Policy</a>
-                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200">Terms of Service</a>
-                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200">API Documentation</a>
+                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:underline">About Us</a>
+                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:underline">Privacy Policy</a>
+                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:underline">Terms of Service</a>
+                    <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:underline">API Documentation</a>
                 </div>
             </div>
         </div>

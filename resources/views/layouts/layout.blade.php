@@ -13,15 +13,17 @@
 </head>
 <body class="bg-black text-white font-sans">
 
-    <header>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-blue-600 focus:text-white focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
+
+    <header role="banner">
         @include('layouts.nav')
     </header>
 
-    <main class="pt-16">
+    <main id="main-content" role="main" class="pt-16 min-h-[60vh]">
         @yield('content')
     </main>
     
-    <footer class="bg-gray-950 border-t border-gray-800 py-12">
+    <footer role="contentinfo" class="bg-gray-950 border-t border-gray-800 py-12">
         @include('layouts.footer')
     </footer>
 </body>
