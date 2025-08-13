@@ -71,7 +71,7 @@
         <div class="rounded-lg p-4 bg-gray-800/60 ring-1 ring-white/5">
             <h4 class="text-sm font-semibold text-gray-200 mb-3">Our Clan Snapshot</h4>
             <div class="flex items-center gap-3 mb-3">
-                <img src="{{ $our['badge'] }}" class="w-8 h-8 rounded-full" alt="badge" onerror="this.src='{{ asset('images/default_badge.png') }}'">
+                <img src="{{ $our['badge'] }}" class="w-8 h-8 rounded-full" alt="badge" onerror="this.src='{{ asset('images/default_badge.png') }}'" loading="lazy" decoding="async">
                 <div class="text-white font-semibold">{{ $pageClanName ?? $our['name'] }}</div>
                 <div class="ml-auto text-xs px-2 py-1 rounded-full bg-gray-900/60 text-gray-300 ring-1 ring-white/10">Wars: {{ $our['wars'] }}</div>
             </div>
@@ -106,13 +106,13 @@
         <div class="rounded-lg p-4 bg-gray-800/60 ring-1 ring-white/5">
             <h4 class="text-sm font-semibold text-gray-200 mb-3">Top 5 Clans by Stars</h4>
             <div class="space-y-2">
-                @foreach($topStars as $row)
-                <div class="flex items-center gap-3 bg-gray-900/40 rounded-md px-3 py-2 ring-1 ring-white/5">
-                    <img src="{{ $row['badge'] }}" class="w-6 h-6 rounded" alt="badge" onerror="this.src='{{ asset('images/default_badge.png') }}'">
-                    <span class="text-white font-medium">{{ $row['name'] }}</span>
-                    <span class="ml-auto text-yellow-400 font-bold">{{ $row['stars'] }}</span>
-                </div>
-                @endforeach
+                                 @foreach($topStars as $row)
+                 <div class="flex items-center gap-3 bg-gray-900/40 rounded-md px-3 py-2 ring-1 ring-white/5">
+                     <img src="{{ $row['badge'] }}" class="w-6 h-6 rounded" alt="badge" onerror="this.src='{{ asset('images/default_badge.png') }}'" loading="lazy" decoding="async">
+                     <span class="text-white font-medium">{{ $row['name'] }}</span>
+                     <span class="ml-auto text-yellow-400 font-bold">{{ $row['stars'] }}</span>
+                 </div>
+                 @endforeach
             </div>
         </div>
     </div>
@@ -125,7 +125,7 @@
             @php $avg = ($row['wars'] ?? 0) > 0 ? $row['destruction'] / $row['wars'] : 0; @endphp
             <div class="bg-gray-900/40 rounded-md px-3 py-2 ring-1 ring-white/5">
                 <div class="flex items-center gap-3 text-gray-300">
-                    <img src="{{ $row['badge'] }}" class="w-6 h-6 rounded" alt="badge" onerror="this.src='{{ asset('images/default_badge.png') }}'">
+                    <img src="{{ $row['badge'] }}" class="w-6 h-6 rounded" alt="badge" onerror="this.src='{{ asset('images/default_badge.png') }}'" loading="lazy" decoding="async">
                     <span class="text-white font-medium">{{ $row['name'] }}</span>
                     <span class="ml-auto text-orange-400 font-semibold">{{ number_format($avg, 1) }}%</span>
                 </div>

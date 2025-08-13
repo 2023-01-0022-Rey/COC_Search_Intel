@@ -3,7 +3,7 @@
         <!-- Logo - Left (flex-1 for equal width) -->
         <div class="flex-1">
             <a class="w-15 h-12 flex items-center" href="/">
-                <img src="{{ asset('images/TH/Icons/Logo_White.svg') }}" alt="Logo">
+                <img src="{{ asset('images/TH/Icons/Logo_White.svg') }}" alt="Logo" width="60" height="48" loading="eager" decoding="async" fetchpriority="high">
             </a>
         </div>
 

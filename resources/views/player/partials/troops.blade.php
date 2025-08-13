@@ -87,7 +87,8 @@
                                     <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-900 ring-1 ring-white/10 p-1 shadow-lg shadow-black/30 flex items-center justify-center transition duration-300 group-hover:scale-105 group-hover:ring-purple-400/40">
                                         <img src="{{ $imagePath }}" 
                                              alt="{{ $troopName }}" 
-                                             class="w-full h-full rounded-full object-contain transition-all duration-300 @if(!$hasTroop) grayscale opacity-40 @else group-hover:scale-110 @endif">
+                                             class="w-full h-full rounded-full object-contain transition-all duration-300 @if(!$hasTroop) grayscale opacity-40 @else group-hover:scale-110 @endif"
+                                             loading="lazy" decoding="async">
                                     </div>
 
                                     {{-- Level Badge --}}

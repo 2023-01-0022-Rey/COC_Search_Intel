@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-6xl mx-auto px-4 py-8">
     <h2 class="flex items-center justify-center gap-2 text-2xl font-bold mb-8 text-white">
-        <img src="{{asset('images/TH/Icons/Trophy.webp')}}" alt="" class="h-[1em] w-[1em] mr-3"> 
+        <img src="{{asset('images/TH/Icons/Trophy.webp')}}" alt="" class="h-[1em] w-[1em] mr-3" loading="lazy" decoding="async"> 
         Top Rankings
     </h2>
     {{-- Location Filter --}}

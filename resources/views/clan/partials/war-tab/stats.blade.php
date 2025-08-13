@@ -34,7 +34,7 @@
                             <span class="font-medium text-right mr-2">{{ $homeCount }}</span>
                             <img src="{{ asset('images/TH/Town_Hall' . $thLevel . '.webp') }}" 
                                 alt="TH{{ $thLevel }}" 
-                                class="w-6 h-6">
+                                class="w-6 h-6" loading="lazy" decoding="async">
                         </div>
                         
                         <div class="w-2/4 px-2">
@@ -47,7 +47,7 @@
                         <div class="flex items-center justify-end w-1/4">
                             <img src="{{ asset('images/TH/Town_Hall' . $thLevel . '.webp') }}" 
                                 alt="TH{{ $thLevel }}" 
-                                class="w-6 h-6 mr-2">
+                                class="w-6 h-6 mr-2" loading="lazy" decoding="async">
                             <span class="font-medium">{{ $awayCount }}</span>
                         </div>
                     </div>

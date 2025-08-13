@@ -10,16 +10,16 @@
                 <h4 class="text-lg font-bold mb-4 text-blue-400">Follow Me</h4>
                 <div class="flex space-x-4">
                     <a href="https://www.x.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <i class="fa-brands fa-twitter"></i>
+                        <span class="material-symbols-outlined">alternate_email</span>
                     </a>
                     <a href="https://www.facebook.com/share/176x1cnxJ4/" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <i class="fa-brands fa-facebook"></i>
+                        <span class="material-symbols-outlined">groups</span>
                     </a>
                     <a href="https://www.instagram.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <i class="fa-brands fa-instagram"></i>
+                        <span class="material-symbols-outlined">photo_camera</span>
                     </a>
                     <a href="https://www.reddit.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-200">
-                        <i class="fa-brands fa-reddit"></i>
+                        <span class="material-symbols-outlined">chat</span>
                     </a>
                 </div>
             </div>

@@ -9,7 +9,7 @@
         <!-- Clan Side -->
         <div class="text-center p-3 rounded-lg hover:bg-purple-500/10 transition-all duration-300">
             <img src="{{ $war['clan']['badgeUrls']['small'] ?? asset('images/default_badge.png') }}" 
-                 alt="Clan Badge" class="w-14 h-14 mx-auto mb-2 drop-shadow-lg">
+                 alt="Clan Badge" class="w-14 h-14 mx-auto mb-2 drop-shadow-lg" loading="lazy" decoding="async">
             <p class="text-white font-bold text-lg">{{ $war['clan']['name'] ?? 'Unknown' }}</p>
             <p class="text-yellow-400 text-3xl font-extrabold mt-1">
                 {{ $war['clan']['stars'] ?? 0 }} ★
@@ -25,7 +25,7 @@
         <!-- Opponent Side -->
         <div class="text-center p-3 rounded-lg hover:bg-purple-500/10 transition-all duration-300">
             <img src="{{ $war['opponent']['badgeUrls']['small'] ?? asset('images/default_badge.png') }}" 
-                 alt="Opponent Badge" class="w-14 h-14 mx-auto mb-2 drop-shadow-lg">
+                 alt="Opponent Badge" class="w-14 h-14 mx-auto mb-2 drop-shadow-lg" loading="lazy" decoding="async">
             <p class="text-white font-bold text-lg">{{ $war['opponent']['name'] ?? 'Unknown' }}</p>
             <p class="text-yellow-400 text-3xl font-extrabold mt-1">
                 {{ $war['opponent']['stars'] ?? 0 }} ★

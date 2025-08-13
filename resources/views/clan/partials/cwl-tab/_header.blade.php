@@ -24,7 +24,7 @@
 
 <div class="relative z-10 flex justify-between items-center px-4 sm:px-6 py-3 cursor-pointer toggle-war group" data-target="{{ $warId }}">
     <div class="flex items-center gap-3">
-        <img src="{{ $war['clan']['badgeUrls']['small'] ?? asset('images/default_badge.png') }}" class="w-8 h-8 rounded-full ring-1 ring-purple-500/30" alt="Clan Badge">
+        <img src="{{ $war['clan']['badgeUrls']['small'] ?? asset('images/default_badge.png') }}" class="w-8 h-8 rounded-full ring-1 ring-purple-500/30" alt="Clan Badge" loading="lazy" decoding="async">
         <span class="text-purple-300 font-semibold">{{ $war['clan']['name'] ?? 'Clan' }}</span>
         <span class="text-yellow-400 font-bold mx-2">vs</span>
         <span class="text-red-300 font-semibold">{{ $war['opponent']['name'] ?? 'Opponent' }}</span>

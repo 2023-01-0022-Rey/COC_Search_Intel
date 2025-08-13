@@ -54,7 +54,7 @@
                         card.innerHTML = `
                             <div class="flex items-start mb-4">
                                 <div class="relative">
-                                    <img src="${clan.badgeUrls.small}" alt="Clan Badge" class="w-16 h-16 object-contain bg-gray-800 rounded-full p-1 border-2 border-gray-700 group-hover:border-blue-500 transition-colors">
+                                    <img src="${clan.badgeUrls.small}" alt="Clan Badge" class="w-16 h-16 object-contain bg-gray-800 rounded-full p-1 border-2 border-gray-700 group-hover:border-blue-500 transition-colors" loading="lazy" decoding="async">
                                     <span class="absolute -bottom-1 -right-1 bg-yellow-500 text-black text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-gray-900">
                                         ${clan.clanLevel}
                                     </span>
