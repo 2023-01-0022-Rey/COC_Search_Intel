@@ -66,7 +66,7 @@
                         <td class="px-4 py-3 text-center align-middle text-gray-200">{{ $member['expLevel'] }}</td>
                         <td class="px-4 py-3 text-center align-middle">
                             @if($th)
-                                <img src="{{ asset('images/TH/Town_Hall' . $th . '.webp') }}" alt="TH{{ $th }}" class="h-6 mx-auto" onerror="this.src='{{ asset('images/TH/Unknown.webp') }}'">
+                                <img src="{{ asset('images/TH/Town_Hall' . $th . '.webp') }}" alt="TH{{ $th }}" class="h-6 mx-auto" onerror="this.src='{{ asset('images/TH/Unknown.webp') }}'" loading="lazy" decoding="async">
                             @else
                                 <span class="text-gray-400">-</span>
                             @endif
@@ -137,7 +137,7 @@
                     </td>
                     <td class="px-4 py-3 text-center align-middle text-gray-200">${member.expLevel}</td>
                     <td class="px-4 py-3 text-center align-middle">
-                        ${member.townHallLevel ? `<img src="/images/TH/Town_Hall${member.townHallLevel}.webp" alt="TH${member.townHallLevel}" class="h-6 mx-auto" onerror="this.src='/images/TH/Unknown.webp'">` : '<span class="text-gray-400">-</span>'}
+                        ${member.townHallLevel ? `<img src="/images/TH/Town_Hall${member.townHallLevel}.webp" alt="TH${member.townHallLevel}" class="h-6 mx-auto" onerror="this.src='/images/TH/Unknown.webp'" loading="lazy" decoding="async">` : '<span class="text-gray-400">-</span>'}
                     </td>
                     <td class="px-4 py-3 text-center align-middle">
                         <span class="text-xs px-2 py-1 rounded-full ${roleClass(member.role)}">${member.role.charAt(0).toUpperCase() + member.role.slice(1)}</span>

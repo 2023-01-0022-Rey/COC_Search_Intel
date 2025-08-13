@@ -5,7 +5,7 @@
     // Early return if no CWL data is available
     if (!isset($clan['cwlGroup']) || empty($clan['cwlGroup']['clans'])) {
         echo '<div class="text-center py-8 text-gray-400">
-                <i class="fas fa-info-circle text-blue-400 mr-2"></i>
+                <span class="material-symbols-outlined text-blue-400 mr-2">info</span>
                 CWL data is not available. CWL only appears during specific seasons.
               </div>';
         return;
@@ -178,7 +178,7 @@
                         </td>
                         <td class="px-4 py-3 whitespace-nowrap align-middle">
                             <div class="flex items-center gap-3">
-                                <img src="{{ $clanData['badge'] }}" alt="{{ $clanData['name'] }}" class="w-8 h-8 rounded-full ring-1 ring-white/10" onerror="this.src='{{ asset('images/default_badge.png') }}'">
+                                <img src="{{ $clanData['badge'] }}" alt="{{ $clanData['name'] }}" class="w-8 h-8 rounded-full ring-1 ring-white/10" onerror="this.src='{{ asset('images/default_badge.png') }}'" loading="lazy" decoding="async">
                                 <span class="font-semibold text-white">{{ $clanData['name'] }}</span>
                             </div>
                         </td>

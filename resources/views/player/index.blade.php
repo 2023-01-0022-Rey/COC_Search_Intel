@@ -17,6 +17,7 @@
                         src="{{ asset('images/TH/Town_Hall' . $player['townHallLevel'] . '.webp') }}" 
                         alt="Town Hall {{ $player['townHallLevel'] }}" 
                         class="w-40 h-40 object-contain transform hover:scale-105 transition-transform duration-300"
+                        loading="lazy" decoding="async"
                     />
                 </div>
 

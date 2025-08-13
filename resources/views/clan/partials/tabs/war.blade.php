@@ -3,7 +3,7 @@ use Carbon\Carbon;
 
 if (!isset($clan['currentWar']) || empty($clan['currentWar'])) {
     echo '<div class="text-center py-8 text-gray-400">
-            <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+            <span class="material-symbols-outlined text-yellow-500 mr-2">warning</span>
             Clan war data is not available.
           </div>';
     return;

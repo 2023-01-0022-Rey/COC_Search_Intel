@@ -57,7 +57,7 @@
                     <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br {{ $gradient }} p-1 shadow-lg">
                         <img src="{{ asset('images/TH/Heroes/' . str_replace(' ', '_', strtolower($name)) . '.webp') }}"
                              alt="{{ $name }}"
-                             class="w-full h-full rounded-full object-cover"/>
+                             class="w-full h-full rounded-full object-cover" loading="lazy" decoding="async"/>
                     </div>
                     <div class="absolute -top-2 -right-2 bg-blue-500 text-white text-sm font-bold px-2 py-1 rounded-full">
                         {{ $heroLevel }}
@@ -95,7 +95,7 @@
                                         <img src="{{ $imagePath }}"
                                              alt="Equipment"
                                              class="w-full h-full rounded-full object-contain
-                                                    @if(!$hasEquip) grayscale opacity-50 @endif">
+                                                    @if(!$hasEquip) grayscale opacity-50 @endif" loading="lazy" decoding="async">
                                     </div>
                                     <div class="absolute -top-1 -right-1
                                                 @if($hasEquip) bg-blue-500 @else bg-gray-600 @endif
