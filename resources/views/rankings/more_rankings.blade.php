@@ -17,50 +17,19 @@
             </h2>
 
             {{-- Filter Form --}}
-            <form method="GET" action="" class="flex items-center gap-3 w-full md:w-auto" x-ref="form">
-                <div class="relative w-full md:w-56" x-data="{
-                        open: false,
-                        query: '',
-                        all: [{id: 'global', name: 'Global'}].concat(@json($locations)),
-                        selectedId: '{{ $selectedLocationId ?? 'global' }}',
-                        get selectedName() {
-                            const match = this.all.find(l => String(l.id) === String(this.selectedId));
-                            return match ? match.name : 'Global';
-                        },
-                        get filtered() {
-                            if (!this.query) return this.all;
-                            const q = this.query.toLowerCase();
-                            return this.all.filter(l => (l.name || '').toLowerCase().includes(q));
-                        },
-                        select(loc) {
-                            this.selectedId = loc.id;
-                            this.query = loc.name;
-                            this.open = false;
-                            this.$refs.locationId.value = loc.id;
-                            this.$refs.form.submit();
-                        }
-                    }" x-init="query = selectedName">
-                    <input type="text" placeholder="Search location..." x-model="query"
-                           @focus="open = true" @input="open = true" @keydown.enter.prevent="filtered.length && select(filtered[0])"
-                           class="w-full rounded-lg px-4 py-2.5 pr-10 bg-gray-900/80 text-gray-100 border border-gray-700 hover:border-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all duration-300 shadow-md" autocomplete="off">
-                    <input type="hidden" name="locationId" x-ref="locationId" value="{{ $selectedLocationId ?? 'global' }}">
+            <form method="GET" action="" class="flex items-center gap-3 w-full md:w-auto" id="rankingsFilterForm">
+                <div class="relative w-full md:w-56">
+                    <input type="text" id="locationSearch" placeholder="Search location..."
+                           class="w-full rounded-lg px-4 py-2.5 pr-10 bg-gray-900/80 text-gray-100 border border-gray-700 hover:border-blue-500/40 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all duration-300 shadow-md" autocomplete="off" aria-expanded="false" aria-controls="locationList">
+                    <input type="hidden" name="locationId" id="locationIdHidden" value="{{ $selectedLocationId ?? 'global' }}">
 
-                    {{-- Icon --}}
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
-                        <svg class="h-5 w-5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                         </svg>
                     </span>
 
-                    <ul x-show="open" @click.outside="open = false" class="absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-gray-900/95 border border-gray-700 shadow-xl">
-                        <template x-for="loc in filtered" :key="loc.id">
-                            <li @click="select(loc)" class="px-4 py-2 text-gray-100 hover:bg-gray-800/80 cursor-pointer flex items-center justify-between">
-                                <span x-text="loc.name"></span>
-                                <span x-show="String(selectedId) === String(loc.id)" class="material-symbols-outlined text-blue-400 text-base">check</span>
-                            </li>
-                        </template>
-                        <li x-show="filtered.length === 0" class="px-4 py-2 text-gray-400">No results</li>
-                    </ul>
+                    <ul id="locationList" class="hidden absolute z-10 mt-1 w-full max-h-60 overflow-auto rounded-md bg-gray-900/95 border border-gray-700 shadow-xl"></ul>
                 </div>
             </form>
         </div>
@@ -126,7 +95,85 @@
         </div>
     </div>
 
-    {{-- Tab Content --}}
+{{-- Searchable Location JS --}}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('locationSearch');
+    const list = document.getElementById('locationList');
+    const hidden = document.getElementById('locationIdHidden');
+    const form = document.getElementById('rankingsFilterForm');
+
+    // Build options: Global + locations from server
+    const locations = [{ id: 'global', name: 'Global' }, ...(@json($locations) || [])];
+
+    // Initialize input value to current selection
+    const currentId = hidden.value || 'global';
+    const current = locations.find(l => String(l.id) === String(currentId));
+    if (current) input.value = current.name;
+
+    function render(items) {
+      list.innerHTML = '';
+      if (!items.length) {
+        const li = document.createElement('li');
+        li.className = 'px-4 py-2 text-gray-400';
+        li.textContent = 'No results';
+        list.appendChild(li);
+        return;
+      }
+      items.forEach(loc => {
+        const li = document.createElement('li');
+        li.className = 'px-4 py-2 text-gray-100 hover:bg-gray-800/80 cursor-pointer flex items-center justify-between';
+        li.innerHTML = `<span>${loc.name ?? ''}</span>`;
+        li.addEventListener('click', () => {
+          hidden.value = loc.id;
+          input.value = loc.name ?? '';
+          hide();
+          form.submit();
+        });
+        list.appendChild(li);
+      });
+    }
+
+    function show() {
+      list.classList.remove('hidden');
+      input.setAttribute('aria-expanded', 'true');
+    }
+    function hide() {
+      list.classList.add('hidden');
+      input.setAttribute('aria-expanded', 'false');
+    }
+
+    function filter() {
+      const q = (input.value || '').toLowerCase();
+      const filtered = q ? locations.filter(l => (l.name || '').toLowerCase().includes(q)) : locations;
+      render(filtered);
+      show();
+    }
+
+    input.addEventListener('focus', filter);
+    input.addEventListener('input', filter);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hide();
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const q = (input.value || '').toLowerCase();
+        const match = locations.find(l => (l.name || '').toLowerCase() === q) || locations.find(l => (l.name || '').toLowerCase().includes(q));
+        if (match) {
+          hidden.value = match.id;
+          input.value = match.name;
+          hide();
+          form.submit();
+        }
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!list.contains(e.target) && e.target !== input) hide();
+    });
+  });
+</script>
+
+{{-- Tab Content --}}
     <div id="homePlayers" class="tab-content">
         @include('rankings.partials.home_player', ['isFullPage' => true])
     </div>
